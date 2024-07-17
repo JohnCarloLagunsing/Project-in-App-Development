@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 import 'task.dart';
 import 'taskprovider.dart';
 import 'taskdetailscreen.dart';
@@ -172,7 +173,7 @@ class _TaskScreenState extends State<TaskScreen> {
   }
 }
 
-class TaskListItem extends StatelessWidget {
+class TaskListItem extends StatefulWidget {
   final String title;
   final DateTime? date;
   final VoidCallback onTap;
@@ -190,25 +191,54 @@ class TaskListItem extends StatelessWidget {
   });
 
   @override
+  _TaskListItemState createState() => _TaskListItemState();
+}
+
+class _TaskListItemState extends State<TaskListItem> {
+  late Timer _timer;
+  bool _showRed = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Start the timer to toggle the red color
+    _timer = Timer.periodic(Duration(milliseconds: 300), (timer) {
+      setState(() {
+        _showRed = !_showRed;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  bool _isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Calculate if the date is today or tomorrow
-    bool isDueToday = date != null && _isSameDay(date!, DateTime.now());
-    bool isDueTomorrow = date != null && _isSameDay(date!, DateTime.now().add(Duration(days: 1)));
+    bool isDueToday = widget.date != null && _isSameDay(widget.date!, DateTime.now());
+    bool isDueTomorrow = widget.date != null && _isSameDay(widget.date!, DateTime.now().add(Duration(days: 1)));
 
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         title: Text(
-          title,
+          widget.title,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        subtitle: date != null
+        subtitle: widget.date != null
             ? Text(
-                'Date: ${DateFormat.yMd().add_jm().format(date!)}',
+                'Date: ${DateFormat.yMd().add_jm().format(widget.date!)}',
                 style: TextStyle(
-                  color: isDueToday || isDueTomorrow ? Colors.red : null,
-                  fontWeight: isDueToday || isDueTomorrow ? FontWeight.bold : FontWeight.normal,
+                  color: (isDueToday || isDueTomorrow) ? (_showRed ? Colors.red : Colors.transparent) : null,
+                  fontWeight: (isDueToday || isDueTomorrow) ? FontWeight.bold : FontWeight.normal,
                 ),
               )
             : null,
@@ -219,22 +249,18 @@ class TaskListItem extends StatelessWidget {
               icon: Icon(Icons.edit),
               onPressed: () {
                 // Call the edit title callback
-                onEditTitle(title);
-                onEdit();
+                widget.onEditTitle(widget.title);
+                widget.onEdit();
               },
             ),
             IconButton(
               icon: Icon(Icons.delete),
-              onPressed: onDelete,
+              onPressed: widget.onDelete,
             ),
           ],
         ),
-        onTap: onTap,
+        onTap: widget.onTap,
       ),
     );
-  }
-
-  bool _isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
   }
 }
