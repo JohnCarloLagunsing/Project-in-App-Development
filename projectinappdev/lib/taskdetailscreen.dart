@@ -89,22 +89,8 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
             child: Row(
               children: [
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Detail: ${widget.task.details[i]}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        'Date: ${DateFormat('yyyy-MM-dd hh:mm a').format(widget.task.submissionDateTimes[i])}',
-                        style: TextStyle(
-                          color: _isDueTodayOrTomorrow(widget.task.submissionDateTimes[i]) ? Colors.red : null,
-                          fontWeight: _isDueTodayOrTomorrow(widget.task.submissionDateTimes[i]) ? FontWeight.bold : FontWeight.normal,
-                        ),
-                      ),
-                    ],
+                  child: Text(
+                    'Detail: ${widget.task.details[i]} - Date: ${DateFormat.yMd().add_jm().format(widget.task.submissionDateTimes[i])}',
                   ),
                 ),
                 IconButton(
@@ -126,155 +112,216 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     );
   }
 
-  bool _isDueTodayOrTomorrow(DateTime dateTime) {
-    DateTime now = DateTime.now();
-    return _isSameDay(dateTime, now) || _isSameDay(dateTime, now.add(Duration(days: 1)));
-  }
-
-  bool _isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
-  }
-
-  void _showAddDetailsAndDateDialog(BuildContext context) {
-    showDialog(
+  Future<void> _showAddDetailsAndDateDialog(BuildContext context) async {
+    TextEditingController detailsController = TextEditingController();
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false);
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Add Details and Date'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: _detailsController,
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(labelText: 'Details'),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Add Details and Date'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: detailsController,
+                    decoration: InputDecoration(labelText: 'Details'),
+                    maxLines: null,
+                  ),
+                  SizedBox(height: 16),
+                  InkWell(
+                    onTap: () async {
+                      DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2101),
+                      );
+                      if (picked != null) {
+                        TimeOfDay? time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                        if (time != null) {
+                          setState(() {
+                            _selectedDateTime = DateTime(
+                              picked.year,
+                              picked.month,
+                              picked.day,
+                              time.hour,
+                              time.minute,
+                            );
+                          });
+                        }
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            _selectedDateTime != null
+                                ? DateFormat.yMd().add_jm().format(_selectedDateTime!)
+                                : 'Select Date and Time',
+                          ),
+                          Icon(Icons.calendar_today),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 10),
-              TextButton(
-                child: Text(_selectedDateTime == null
-                    ? 'Select Submission Date and Time'
-                    : 'Change Submission Date and Time: ${DateFormat('yyyy-MM-dd hh:mm a').format(_selectedDateTime!)}'),
-                onPressed: () {
-                  _pickDateAndTime(context);
-                },
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('Save'),
-              onPressed: () {
-                _saveDetailsAndDate(context);
-              },
-            ),
-          ],
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text('Add'),
+                  onPressed: () {
+                    if (detailsController.text.isNotEmpty && _selectedDateTime != null) {
+                      taskProvider.addTaskDetails(
+                        widget.task.id,
+                        detailsController.text,
+                        _selectedDateTime!,
+                      );
+
+                      // Pass updated task back to TaskScreen
+                      Task updatedTask = Task(
+                        id: widget.task.id,
+                        Subject: widget.task.Subject,
+                        details: widget.task.details,
+                        submissionDateTimes: widget.task.submissionDateTimes + [_selectedDateTime!], // Append new date
+                      );
+
+                      Navigator.of(context).pop(updatedTask); // Pass updated task back
+                    }
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );
   }
 
-  void _pickDateAndTime(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDateTime ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null) {
-      final TimeOfDay? timePicked = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.fromDateTime(_selectedDateTime ?? DateTime.now()),
-      );
-      if (timePicked != null) {
-        setState(() {
-          _selectedDateTime = DateTime(picked.year, picked.month, picked.day, timePicked.hour, timePicked.minute);
-        });
-      }
-    }
-  }
-
-  void _saveDetailsAndDate(BuildContext context) {
-    if (_detailsController.text.isNotEmpty && _selectedDateTime != null) {
-      setState(() {
-        widget.task.details.add(_detailsController.text);
-        widget.task.submissionDateTimes.add(_selectedDateTime!);
-      });
-      Navigator.of(context).pop();
-    }
-  }
-
-  void _showEditDetailsAndDateDialog(BuildContext context, int index) {
-    _detailsController.text = widget.task.details[index];
+  Future<void> _showEditDetailsAndDateDialog(BuildContext context, int index) async {
+    TextEditingController detailsController = TextEditingController(text: widget.task.details[index]);
     _selectedDateTime = widget.task.submissionDateTimes[index];
 
-    showDialog(
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false);
+
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Edit Details and Date'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: _detailsController,
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(labelText: 'Details'),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Edit Details and Date'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: detailsController,
+                    decoration: InputDecoration(labelText: 'Details'),
+                    maxLines: null,
+                  ),
+                  SizedBox(height: 16),
+                  InkWell(
+                    onTap: () async {
+                      DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedDateTime ?? DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2101),
+                      );
+                      if (picked != null) {
+                        TimeOfDay? time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(_selectedDateTime ?? DateTime.now()),
+                        );
+                        if (time != null) {
+                          setState(() {
+                            _selectedDateTime = DateTime(
+                              picked.year,
+                              picked.month,
+                              picked.day,
+                              time.hour,
+                              time.minute,
+                            );
+                          });
+                        }
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            _selectedDateTime != null
+                                ? DateFormat.yMd().add_jm().format(_selectedDateTime!)
+                                : 'Select Date and Time',
+                          ),
+                          Icon(Icons.calendar_today),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 10),
-              TextButton(
-                child: Text(_selectedDateTime == null
-                    ? 'Select Submission Date and Time'
-                    : 'Change Submission Date and Time: ${DateFormat('yyyy-MM-dd hh:mm a').format(_selectedDateTime!)}'),
-                onPressed: () {
-                  _pickDateAndTime(context);
-                },
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('Save'),
-              onPressed: () {
-                _editDetailsAndDate(context, index);
-              },
-            ),
-          ],
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text('Save'),
+                  onPressed: () {
+                    if (detailsController.text.isNotEmpty && _selectedDateTime != null) {
+                      taskProvider.editTaskDetails(
+                        widget.task.id,
+                        index,
+                        detailsController.text,
+                        _selectedDateTime!,
+                      );
+
+                      Navigator.of(context).pop(); // Close dialog
+                    }
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );
-  }
-
-  void _editDetailsAndDate(BuildContext context, int index) {
-    if (_detailsController.text.isNotEmpty && _selectedDateTime != null) {
-      setState(() {
-        widget.task.details[index] = _detailsController.text;
-        widget.task.submissionDateTimes[index] = _selectedDateTime!;
-      });
-      Navigator.of(context).pop();
-    }
   }
 
   void _showDeleteDetailsAndDateDialog(BuildContext context, int index) {
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false);
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Delete Detail and Date'),
-          content: Text('Are you sure you want to delete this detail and date?'),
+          title: Text('Delete Details and Date'),
+          content: Text('Are you sure you want to delete this entry?'),
           actions: <Widget>[
             TextButton(
               child: Text('Cancel'),
@@ -285,8 +332,8 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
             TextButton(
               child: Text('Delete'),
               onPressed: () {
-                _deleteDetailsAndDate(index);
-                Navigator.of(context).pop();
+                taskProvider.deleteTaskDetails(widget.task.id, index);
+                Navigator.of(context).pop(); // Close dialog
               },
             ),
           ],
@@ -295,15 +342,13 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     );
   }
 
-  void _deleteDetailsAndDate(int index) {
-    setState(() {
-      widget.task.details.removeAt(index);
-      widget.task.submissionDateTimes.removeAt(index);
-    });
-  }
-
   void _saveChanges(TaskProvider taskProvider) {
-    taskProvider.updateTask(widget.task);
-    Navigator.of(context).pop(widget.task);
+    taskProvider.editTask(
+      widget.task.id,
+      widget.task.Subject,
+      widget.task.details,
+      widget.task.submissionDateTimes,
+    );
+    Navigator.of(context).pop();
   }
 }
