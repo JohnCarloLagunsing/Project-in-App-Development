@@ -18,13 +18,12 @@ BSIT-3307
 
 </details>
 <details>
-  <summary>UI</summary>
-  
+  <summary>UI</summary> 
   ![UI Image 1](projectinappdev/UI/UI 1.png)
   <pre>            <b>Task Screen UI</b>        </pre>
   
-  ![UI Image 3](projectinappdev/UI/UI4.png)
-  ![UI Image 4](UI/UI3.png)
+  ![UI Image 3](projectinappdev/UI/UI4.png)     ![UI Image 4](projectinappdev/UI/UI3.png)
+
   <pre>
     <b>UI for Adding a Task</b>
     <b>UI of Task Details</b>
