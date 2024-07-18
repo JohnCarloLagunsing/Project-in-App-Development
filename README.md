@@ -28,8 +28,7 @@ BSIT-3307
 </details>
 <details><summary>Developer</summary>
     <h5>Hawak Carl Jonel V. </h5>
-      <a href="" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-      <a href="https://www.facebook.com/jonel.hawak" target="_blank"><img src="https://img.shields.io/badge/Facebook-%231877F2.svg?&style=flat-square&logo=facebook&logoColor=white" alt="Facebook"><a href="" target="_blank"><img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?&style=flat-square&logo=instagram&logoColor=white" alt="Instagram"></a><img alt="followers" title="Follow me on Twitter" src="https://img.shields.io/twitter/follow/dhanushkadev?color=55960c&label=Follow&logo=twitter&logoColor=white&style=for-the-badge"/>
+      <a href="" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a><a href="https://www.facebook.com/jonel.hawak" target="_blank"><img src="https://img.shields.io/badge/Facebook-%231877F2.svg?&style=flat-square&logo=facebook&logoColor=white" alt="Facebook"><a href="" target="_blank"><img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?&style=flat-square&logo=instagram&logoColor=white" alt="Instagram"></a><img alt="followers" title="Follow me on Twitter" src="https://img.shields.io/twitter/follow/dhanushkadev?color=55960c&label=Follow&logo=twitter&logoColor=white&style=for-the-badge"/>
     <h5>Lagunsing John Carlo M. </h5>
         <a href="" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
       <a href="https://www.facebook.com/c.lagunsing" target="_blank"><img src="https://img.shields.io/badge/Facebook-%231877F2.svg?&style=flat-square&logo=facebook&logoColor=white" alt="Facebook"></a>
