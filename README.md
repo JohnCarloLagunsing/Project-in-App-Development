@@ -11,7 +11,7 @@ BSIT-3307
 
   <details><summary>Functionalities</summary>
 
-- ![Logo](https://img.shields.io/badge/your-logo-blue) Create and Add a Student Task
+- [![Add Button](https://img.shields.io/badge/Add-+-green)] Create and Add a Student Task
 - Edit a Student Task
 - Read or View the Student Task
 - Delete a Student Task 
