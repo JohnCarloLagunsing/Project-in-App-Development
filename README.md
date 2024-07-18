@@ -19,12 +19,18 @@ BSIT-3307
 </details>
 <details>
   <summary>UI</summary>
-![UI Image 1](projectinappdev/UI/UI 1.png)
-  <pre>                                                    <b>Task Screen UI</b></pre>
- ![UI Image 3](UI/UI4.png)  ![UI Image 4](UI/UI3.png)
-  <pre>                     <b>UI for Adding a Task</b>                                          <b>UI of Task Details</b></pre>
-
+  
+  ![UI Image 1](projectinappdev/UI/UI 1.png)
+  <pre><b>Task Screen UI</b></pre>
+  
+  ![UI Image 3](UI/UI4.png)
+  ![UI Image 4](UI/UI3.png)
+  <pre>
+    <b>UI for Adding a Task</b>
+    <b>UI of Task Details</b>
+  </pre>
 </details>
+
 <details><summary>Developer</summary>
     <h5>Hawak Carl Jonel V. </h5>
 <a href="" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
