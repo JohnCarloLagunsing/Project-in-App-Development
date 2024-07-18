@@ -48,8 +48,13 @@ BSIT-3307
   <img alt="GitHub" src="https://img.shields.io/badge/dynamic/json?logo=github&label=GitHub+Followers&labelColor=282c34&color=181717&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dgithub%26queryKey%3Dmadushadhanushka&longCache=true"/>  
 </details>
 <details><summary>Programming Languages used and Frameworks</summary>
- <div style="padding-right: 10px;>
-  
-   ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)    ![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
-  </div>
+<details><summary>Programming Languages used and Frameworks</summary>
+
+<div style="padding-right: 10px;">
+  <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" />
+  <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
+</div>
+
+</details>
+
 </details>
