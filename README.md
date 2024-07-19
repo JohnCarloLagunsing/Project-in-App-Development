@@ -43,7 +43,7 @@ BSIT-3307
     <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Luna Andrei B.</h5>
        <a href="" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
       <a href="https://www.facebook.com/andrei.luna.980" target="_blank"><img src="https://img.shields.io/badge/Facebook-%231877F2.svg?&style=flat-square&logo=facebook&logoColor=white" alt="Facebook"></a>
-        <a href="" target="_blank">
+        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fdreidredr%3Figsh%3Db2J1ODYyOHlnMjFr%26fbclid%3DIwZXh0bgNhZW0CMTAAAR08BQaQREtFT9OlbOGxAsay5LGsKVL16sSaAiPoFCTy1nEodyVVNnYgBjc_aem_w5BXcUEPQ72ntKGTj-ACzw&h=AT1AgpVX1VQfitTeF4fTOXYmOfCRIbZCev_aGYSqQHwsho4G1cjYoni2qt2yb9oaU4SPmyTH8NYdxyucPJpGtXu1Stt9yPufj85bmpfltZxVRlTbA4637Bh6xw7-kIkkHTlBcw" target="_blank">
           <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?&style=flat-square&logo=instagram&logoColor=white" alt="Instagram"></a>
   <img alt="GitHub" src="https://img.shields.io/badge/dynamic/json?logo=github&label=GitHub+Followers&labelColor=282c34&color=181717&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dgithub%26queryKey%3Dmadushadhanushka&longCache=true"/> 
 </details>
