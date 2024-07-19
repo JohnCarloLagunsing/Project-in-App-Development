@@ -37,7 +37,7 @@ BSIT-3307
           <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?&style=flat-square&logo=instagram&logoColor=white" alt="Instagram"></a>
     <img alt="GitHub" src="https://img.shields.io/badge/dynamic/json?logo=github&label=GitHub+Followers&labelColor=282c34&color=181717&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dgithub%26queryKey%3Dmadushadhanushka&longCache=true"/>
  
- <img src="projectinappdev/Devpic/devpic1.jpg">
+ ![UI devpic 3](projectinappdev/Devpic/devpic1.jpg) 
   <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lagunsing John Carlo M. </h5>
         <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fcacarkot%3Figsh%3DcHludnM1dDNmNTV3%26fbclid%3DIwZXh0bgNhZW0CMTAAAR0lRew2tnAr-BGtNegZOe8mPJgznwfbqt8n6C-U7-gj_tBfk_tym-nFo38_aem_2dvIkJTMDSTk5p5HoiDK8w&h=AT1AgpVX1VQfitTeF4fTOXYmOfCRIbZCev_aGYSqQHwsho4G1cjYoni2qt2yb9oaU4SPmyTH8NYdxyucPJpGtXu1Stt9yPufj85bmpfltZxVRlTbA4637Bh6xw7-kIkkHTlBcw" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
       <a href="https://www.facebook.com/c.lagunsing" target="_blank"><img src="https://img.shields.io/badge/Facebook-%231877F2.svg?&style=flat-square&logo=facebook&logoColor=white" alt="Facebook"></a>
